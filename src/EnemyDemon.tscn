@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://bin/enemy_sprites/demon_sprites/demon-idle.png" type="Texture" id=1]
+[ext_resource path="res://bin/enemy_sprites/demon_sprites/demon-idle2.png" type="Texture" id=2]
+[ext_resource path="res://bin/enemy_sprites/demon_sprites/demon-idle3.png" type="Texture" id=3]
+[ext_resource path="res://bin/enemy_sprites/demon_sprites/demon-idle4.png" type="Texture" id=4]
+[ext_resource path="res://bin/enemy_sprites/demon_sprites/demon-idle5.png" type="Texture" id=5]
+[ext_resource path="res://bin/enemy_sprites/demon_sprites/demon-idle6.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 15.0
+} ]
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[node name="Enemy" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Collision", "collision" ]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
+
+position = Vector2( 8.42338, -8.88546 )
+scale = Vector2( 1.00689, 1 )
+frames = SubResource( 1 )
+animation = "Idle"
+frame = 3
+playing = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+visible = false
+position = Vector2( -4.81084, 3.28597 )
+scale = Vector2( 4.28131, 2.14153 )
+shape = SubResource( 2 )
+
+[node name="cliff_ray" type="RayCast2D" parent="." index="2"]
+
+position = Vector2( -46, 0 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 48 )
+collision_mask = 0
+_sections_unfolded = [ "Transform" ]
+
+

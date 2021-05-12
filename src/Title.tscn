@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/Title.gd" type="Script" id=1]
+[ext_resource path="res://bin/Background.png" type="Texture" id=2]
+[ext_resource path="res://bin/w_broadsword_holy.png" type="Texture" id=3]
+[ext_resource path="res://bin/title_sprite.png" type="Texture" id=4]
+[ext_resource path="res://bin/start_button.png" type="Texture" id=5]
+[ext_resource path="res://bin/startselect_button.png" type="Texture" id=6]
+[ext_resource path="res://bin/help_button.png" type="Texture" id=7]
+[ext_resource path="res://bin/helpselect_button.png" type="Texture" id=8]
+[ext_resource path="res://bin/end_button.png" type="Texture" id=9]
+[ext_resource path="res://bin/endselect_button.png" type="Texture" id=10]
+[ext_resource path="res://bin/sfx/music_title.ogg" type="AudioStream" id=11]
+[ext_resource path="res://bin/sfx/sfx_pressed.ogg" type="AudioStream" id=12]
+
+[node name="Title" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+modulate = Color( 0.15625, 0.15625, 0.15625, 1 )
+position = Vector2( 640, 310 )
+scale = Vector2( 1.52604, 1.1851 )
+texture = ExtResource( 2 )
+
+[node name="w_broadsword_holy" type="Sprite" parent="."]
+modulate = Color( 0.304688, 0.276123, 0.288843, 1 )
+self_modulate = Color( 1, 0.664063, 0.664063, 1 )
+light_mask = 0
+position = Vector2( 590, 480 )
+scale = Vector2( 19.4839, -18.3905 )
+texture = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 210.0
+margin_top = 50.0
+margin_right = 210.0
+margin_bottom = 50.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 405.0
+margin_top = 219.0
+margin_right = 555.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="title_sprite" type="Sprite" parent="CenterContainer/VBoxContainer"]
+position = Vector2( 31, -46 )
+texture = ExtResource( 4 )
+
+[node name="Start" type="TextureButton" parent="CenterContainer/VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 31.0
+focus_neighbour_top = NodePath(".")
+focus_neighbour_bottom = NodePath("../Help")
+texture_normal = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
+
+[node name="Help" type="TextureButton" parent="CenterContainer/VBoxContainer"]
+margin_top = 35.0
+margin_right = 150.0
+margin_bottom = 66.0
+focus_neighbour_top = NodePath("../Start")
+focus_neighbour_bottom = NodePath("../End")
+texture_normal = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+
+[node name="End" type="TextureButton" parent="CenterContainer/VBoxContainer"]
+margin_top = 70.0
+margin_right = 150.0
+margin_bottom = 101.0
+focus_neighbour_top = NodePath("../Help")
+texture_normal = ExtResource( 9 )
+texture_hover = ExtResource( 10 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[node name="ButtonPress" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Help" to="." method="_on_Help_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/End" to="." method="_on_End_pressed"]

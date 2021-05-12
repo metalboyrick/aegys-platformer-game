@@ -1,0 +1,130 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://bin/dirtspike_tile.png" type="Texture" id=1]
+[ext_resource path="res://bin/spike_tile.png" type="Texture" id=2]
+[ext_resource path="res://Flame_1.gd" type="Script" id=3]
+[ext_resource path="res://bin/flame_1_tile.png" type="Texture" id=4]
+[ext_resource path="res://bin/flame_2_tile.png" type="Texture" id=5]
+[ext_resource path="res://bin/flame_3_tile.png" type="Texture" id=6]
+
+[sub_resource type="GDScript" id=5]
+
+script/source = "extends Area2D
+
+func _physics_process(delta):
+	var touch = get_overlapping_bodies()
+	for body in touch:
+		if body.name == \"Player\":
+			get_tree().reload_current_scene()
+
+"
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 13, 13 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="DamageTiles" type="Node"]
+
+[node name="Spike_1" type="Area2D" parent="." index="0"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spike_1" index="0"]
+
+position = Vector2( 16, 16 )
+scale = Vector2( 1.23077, 1.23077 )
+shape = SubResource( 1 )
+
+[node name="dirtspike_tile" type="Sprite" parent="Spike_1" index="1"]
+
+texture = ExtResource( 1 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="Spike_2" type="Area2D" parent="." index="1"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spike_2" index="0"]
+
+position = Vector2( 80, 16 )
+scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 2 )
+
+[node name="spike_tile" type="Sprite" parent="Spike_2" index="1"]
+
+position = Vector2( 64, 0 )
+texture = ExtResource( 2 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="Flame_1" type="Area2D" parent="." index="2"]
+
+editor/display_folded = true
+position = Vector2( 128, 0 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Flame_1" index="0"]
+
+frames = SubResource( 3 )
+animation = "default"
+frame = 1
+playing = true
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flame_1" index="1"]
+
+position = Vector2( 16, 16 )
+scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 4 )
+
+
